@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
     String[] piecesInitialPositionB =
             {rookB, knightB, bishopB, queenB, kingB, bishopB, knightB, rookB};
     String[][] board = new String[8][8];
-    int count=0, lastClickedIndex;
-    boolean a=false, optionShown=false;
+    int count=0, lastClickedPiece;
+    boolean a=false, optionShown=false, isPawnOption, isRookOption, isKnightOption,
+    isBishopOption, isKingOption, isQueenOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
     }
     private void pawnOptions(int row, int column, int i){
         optionShown = true;
+        isPawnOption = true;
+        lastClickedPiece = i;
         if(count==0){
             if(row==1) {
                 cells[i + 8].setBackgroundColor(getColor(R.color.grey));
@@ -147,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void resetBackground(){
+        String secondClickedCell = board[lastClickedPiece /8][lastClickedPiece %8];
+
+        //if(.equals("empty")) return;
         boolean toggle = false;
         for(int i=0; i<64; i++){
             cells[i].setBackgroundColor(getColor(toggle?R.color.black_cell:R.color.white_cell));
